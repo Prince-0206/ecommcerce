@@ -703,6 +703,8 @@ display: flex;
     display: flex;
     align-items: center;
     width: 100%;
+    position: relative;
+    padding-bottom: 100px;
 }
 #blog .blogimg{
 width: 50%;
@@ -722,17 +724,57 @@ margin-right: 40px;
     font-size: 11px;
     font-weight: 700;
     position: relative;
+    transition: 0.3s;
 }
-#blog .blogdetails a:hover{
+    #blog .blogdetails a::after {
     content: " ";
     width: 50px;
     height: 1px;
     background-color: #000;
     position: absolute;
-top: 4px;
-right: -60px;
+    top: 4px;
+    right: -60px;
 
 }
+#blog .blogdetails a:hover{
+    color: #088178;
+}
+
+#blog .blogdetails a:hover::after{
+    background-color: #088178;
+}
+
+#blog .borderbox h1{
+    position: absolute;
+    top: -40px;
+    left: 0;
+    font-size: 70px;
+    color: #c9cbce;
+    font-weight: 700;
+    z-index: -9;
+}
+
+#pageheader.aboutheader{
+    background-image: url("bannerabout.png");
+    height: 40vh;
+    width: 100%;
+    background-size: cover;
+}
+#abouthead{
+    display: flex;
+    align-items: center;
+    
+}
+#abouthead img{
+    width: 50%;
+    height: auto;
+}
+#abouthead div{
+    padding-left: 40px;
+}
+
+
+
 #mobile {
     display: none;
     align-items: center;
@@ -897,14 +939,35 @@ footer.copyright {
 #prodetail .singleprodetails h2{
     width: 100%;
 }
-
-
+#blog .borderbox{
+    flex-direction: column;
+display: flex;
+align-items: flex-start;
 }
 
+#blog {
+    padding: 100px 20px 0 20px;
+}
 
+#blog .blogimg {
+    width: 100%;
+    margin right: 0;
+    margin-bottom: 30px;
+}
 
-
-
-
+#blog .blogdetails {
+    width: 100%;;
+}
+#abouthead{
+   flex-direction: column;
+}
+#abouthead img{
+    width: 100%;
+    margin-bottom: 20px;
+}
+#abouthead div{
+    padding-left: 0;
+}
+}
 
 
