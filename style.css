@@ -178,7 +178,7 @@ button.white:hover {
 #hero {
   background-image:
     linear-gradient(120deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.5) 55%, rgba(255,255,255,0.1) 100%),
-    url("Firefly.png");
+    url("images/Firefly.png");
   min-height: 92vh;
   width: 100%;
   background-size: cover;
@@ -470,7 +470,7 @@ button.white:hover {
   height: 45vh;
   background-image:
     linear-gradient(135deg, rgba(4,30,66,0.80), rgba(8,129,120,0.75)),
-    url("ban.png");
+    url("images/ban.png");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -524,7 +524,7 @@ button.white:hover {
   justify-content: center;
   background-image:
     linear-gradient(135deg, rgba(4,30,66,0.7) 0%, rgba(8,129,120,0.5) 100%),
-    url("rightbnr.png");
+    url("images/rightbnr.png");
   background-size: cover;
   background-position: center;
   padding: 50px;
@@ -553,7 +553,7 @@ button.white:hover {
 #smbanner .bannerbox2 {
   background-image:
     linear-gradient(135deg, rgba(8,129,120,0.6) 0%, rgba(4,30,66,0.75) 100%),
-    url("rightimg.png");
+    url("images/rightimg.png");
 }
 
 #smbanner h4 {
@@ -602,7 +602,7 @@ button.white:hover {
   justify-content: center;
   background-image:
     linear-gradient(135deg, rgba(8,129,120,0.82), rgba(4,30,66,0.82)),
-    url("rightbnr.png");
+    url("images/rightbnr.png");
   background-size: cover;
   background-position: center;
   padding: 36px;
@@ -826,7 +826,7 @@ footer .copyright {
 #pageheader {
   background-image:
     linear-gradient(135deg, rgba(4,30,66,0.75), rgba(8,129,120,0.65)),
-    url("b1.jpg");
+    url("images/b1.jpg");
   height: 42vh;
   width: 100%;
   background-size: cover;
@@ -994,7 +994,7 @@ footer .copyright {
 #pageheader.blogheader {
   background-image:
     linear-gradient(135deg, rgba(4,30,66,0.75), rgba(8,129,120,0.65)),
-    url("b1.jpg");
+    url("images/b1.jpg");
   height: 42vh;
   width: 100%;
   background-size: cover;
@@ -1097,7 +1097,7 @@ footer .copyright {
 #pageheader.aboutheader {
   background-image:
     linear-gradient(135deg, rgba(4,30,66,0.75), rgba(8,129,120,0.65)),
-    url("bannerabout.png");
+    url("images/bannerabout.png");
   height: 42vh;
   width: 100%;
   background-size: cover;
