@@ -1,151 +1,311 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Tulli Garments - Cart</title>
-        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
-        <script src="https://kit.fontawesome.com/d0997f2656.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="style.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart — Tulli Garments</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <script src="https://kit.fontawesome.com/d0997f2656.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .cart-count {
+            background: #088178;
+            color: white;
+            border-radius: 50%;
+            font-size: 11px;
+            padding: 2px 6px;
+            margin-left: 4px;
+            vertical-align: top;
+        }
+        #cart table img {
+            width: 70px;
+            border-radius: 6px;
+        }
+        #cart table input {
+            width: 60px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+            font-size: 16px;
+        }
+        .empty-cart a {
+            color: #088178;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #e74c3c;
+            color: white;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        #toast.show { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
 
-    <body>
+<body>
 
-<section id="header">
-    <a href="#"><img src="mainlogo.png" alt="Tulli Garments Logo" class="leftlogo"></a>
-    <div>
-        <ul id="navbar">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="shop.html">Shop</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li id="lgbag"><a class="active" href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a></li>
-            <a href="#" id="close"><i class="fas fa-times"></i></a>
-        </ul>
-    </div>
-    <div id="mobile">
-        <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a>
-        <i id="bar" class="fas fa-outdent"></i>
-    </div>
-</section>
-
-<section id="pageheader">
-    <h2>Your Cart</h2>
-    <p>Review your items before checkout</p>
-</section>
-
-<section id="cart" class="section-p1">
-    <table width="100%">
-        <thead>
-            <tr>
-                <td>Remove</td>
-                <td>Image</td>
-                <td>Product</td>
-                <td>Price</td>
-                <td>Quantity</td>
-                <td>Subtotal</td>
-            </tr>
-        </thead>
-        <tbody id="cart-body">
-            <tr>
-                <td><a href="#" onclick="removeItem(this); return false;"><i class="fas fa-trash"></i></a></td>
-                <td><img src="pro5.png" alt="Hotwheels Tshirt"></td>
-                <td>Hotwheels T-shirt</td>
-                <td class="price">$22.00</td>
-                <td><input type="number" value="1" min="1" onchange="updateTotal()"></td>
-                <td class="subtotal">$22.00</td>
-            </tr>
-            <tr>
-                <td><a href="#" onclick="removeItem(this); return false;"><i class="fas fa-trash"></i></a></td>
-                <td><img src="pro7.png" alt="Burberry Tshirt"></td>
-                <td>Burberry Kids T-shirt</td>
-                <td class="price">$120.00</td>
-                <td><input type="number" value="1" min="1" onchange="updateTotal()"></td>
-                <td class="subtotal">$120.00</td>
-            </tr>
-            <tr>
-                <td><a href="#" onclick="removeItem(this); return false;"><i class="fas fa-trash"></i></a></td>
-                <td><img src="pro6.png" alt="Red Tape Polo"></td>
-                <td>Red Tape Men Polo</td>
-                <td class="price">$30.00</td>
-                <td><input type="number" value="1" min="1" onchange="updateTotal()"></td>
-                <td class="subtotal">$30.00</td>
-            </tr>
-        </tbody>
-    </table>
-</section>
-
-<section id="cartadd" class="section-p1">
-    <div id="coupon">
-        <h3>Apply Coupon</h3>
+    <!-- ===================== HEADER ===================== -->
+    <section id="header">
+        <a href="index.html">
+            <img src="mainlogo.png" alt="Tulli Garments Logo" class="leftlogo">
+        </a>
         <div>
-            <input type="text" id="coupon-input" placeholder="Enter your coupon code">
-            <button class="normal" onclick="applyCoupon()">Apply</button>
+            <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li id="lgbag">
+                    <a class="active" href="cart.html">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span class="cart-count" id="cart-count">0</span>
+                    </a>
+                </li>
+                <a href="#" id="close"><i class="fas fa-times"></i></a>
+            </ul>
         </div>
-        <p id="coupon-msg" style="color: green; margin-top: 10px; font-size: 14px;"></p>
-    </div>
-    <div id="subtotal">
-        <h3>Cart Totals</h3>
-        <table>
-            <tr>
-                <td>Cart Subtotal</td>
-                <td class="grand-total">$172.00</td>
-            </tr>
-            <tr>
-                <td>Shipping</td>
-                <td>$10.00</td>
-            </tr>
-            <tr>
-                <td><strong>Total</strong></td>
-                <td><strong class="final-total">$182.00</strong></td>
-            </tr>
-        </table>
-        <button class="normal">Proceed to Checkout</button>
-    </div>
-</section>
+        <div id="mobile">
+            <a href="cart.html">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span class="cart-count" id="cart-count-mobile">0</span>
+            </a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
 
-<footer class="section-p1">
-    <div class="col">
-        <h4>Contact</h4>
-        <p><strong>Address: </strong> 123 Main Street, Anytown, USA</p>
-        <p><strong>Phone: </strong> (123) 456-7890</p>
-        <p><strong>Hours: </strong> Mon - Fri: 9am - 5pm</p>
-        <div class="Follow">
-            <h4>Follow Us</h4>
-            <div class="icon">
-                <i class="fab fa-facebook-f"></i>
-                <i class="fab fa-twitter"></i>
-                <i class="fab fa-instagram"></i>
-                <i class="fab fa-pinterest-p"></i>
-                <i class="fab fa-youtube"></i>
+    <!-- ===================== PAGE HEADER ===================== -->
+    <section id="pageheader">
+        <h2>Your Cart</h2>
+        <p>Review your items before checkout</p>
+    </section>
+
+    <!-- ===================== CART TABLE ===================== -->
+    <section id="cart" class="section-p1">
+        <table width="100%">
+            <thead>
+                <tr>
+                    <td>Remove</td>
+                    <td>Image</td>
+                    <td>Product</td>
+                    <td>Size</td>
+                    <td>Price</td>
+                    <td>Quantity</td>
+                    <td>Subtotal</td>
+                </tr>
+            </thead>
+            <tbody id="cart-body">
+                <!-- Filled dynamically by JS -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- ===================== CART TOTALS ===================== -->
+    <section id="cartadd" class="section-p1">
+        <div id="coupon">
+            <h3>Apply Coupon</h3>
+            <div>
+                <input type="text" id="coupon-input" placeholder="Enter coupon code (e.g. TULLI10)">
+                <button class="normal" onclick="applyCoupon()">Apply</button>
+            </div>
+            <p id="coupon-msg" style="margin-top: 10px; font-size: 14px;"></p>
+        </div>
+        <div id="subtotal">
+            <h3>Cart Totals</h3>
+            <table>
+                <tr>
+                    <td>Cart Subtotal</td>
+                    <td class="grand-total">$0.00</td>
+                </tr>
+                <tr>
+                    <td>Shipping</td>
+                    <td>$10.00</td>
+                </tr>
+                <tr>
+                    <td><strong>Total</strong></td>
+                    <td><strong class="final-total">$10.00</strong></td>
+                </tr>
+            </table>
+            <button class="normal" onclick="alert('Checkout coming soon!')">Proceed to Checkout</button>
+        </div>
+    </section>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="section-p1">
+        <div class="col">
+            <h4>Contact</h4>
+            <p><strong>Address: </strong>123 Main Street, Anytown, USA</p>
+            <p><strong>Phone: </strong>(123) 456-7890</p>
+            <p><strong>Hours: </strong>Mon – Fri: 9am – 5pm</p>
+            <div class="Follow">
+                <h4>Follow Us</h4>
+                <div class="icon">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-pinterest-p"></i>
+                    <i class="fab fa-youtube"></i>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col">
-        <h4>About</h4>
-        <a href="#">About Us</a>
-        <a href="#">Delivery Information</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms & Conditions</a>
-        <a href="#">Contact Us</a>
-    </div>
-    <div class="col">
-        <h4>My Account</h4>
-        <a href="#">Sign In</a>
-        <a href="#">View Cart</a>
-        <a href="#">My Wishlist</a>
-        <a href="#">Track My Order</a>
-        <a href="#">Help</a>
-    </div>
-    <div class="copyright">
-        <p>&copy; 2024 Tulli Garments. All rights reserved.</p>
-    </div>
-</footer>
+        <div class="col">
+            <h4>About</h4>
+            <a href="about.html">About Us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms &amp; Conditions</a>
+            <a href="contact.html">Contact Us</a>
+        </div>
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="cart.html">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My Order</a>
+            <a href="#">Help</a>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 Tulli Garments. All rights reserved.</p>
+        </div>
+    </footer>
 
-        <script src="script.js"></script>
-    </body>
+    <div id="toast"></div>
 
+    <script src="script.js"></script>
+    <script>
+        // ── Render cart from localStorage ──
+        function renderCart() {
+            const cart = getCart();
+            const tbody = document.getElementById("cart-body");
+
+            if (cart.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="empty-cart">
+                            🛒 Your cart is empty.
+                            <a href="shop.html"> Continue Shopping</a>
+                        </td>
+                    </tr>`;
+                updateTotals(0);
+                return;
+            }
+
+            tbody.innerHTML = "";
+            cart.forEach((item, index) => {
+                const price = parseFloat(item.price.replace("$", ""));
+                const subtotal = (price * item.qty).toFixed(2);
+
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>
+                        <a href="#" onclick="removeFromCart(${index}); return false;">
+                            <i class="fas fa-trash" style="color:#e74c3c; font-size:16px;"></i>
+                        </a>
+                    </td>
+                    <td><img src="${item.img}" alt="${item.name}"></td>
+                    <td>${item.name}</td>
+                    <td>${item.size}</td>
+                    <td class="price">${item.price}</td>
+                    <td>
+                        <input type="number" value="${item.qty}" min="1"
+                            onchange="updateQty(${index}, this.value)">
+                    </td>
+                    <td class="subtotal">$${subtotal}</td>
+                `;
+                tbody.appendChild(row);
+            });
+
+            recalcTotals();
+        }
+
+        // ── Recalculate totals from current rows ──
+        function recalcTotals() {
+            let total = 0;
+            document.querySelectorAll("#cart-body tr").forEach(row => {
+                const price    = row.querySelector(".price");
+                const subtotal = row.querySelector(".subtotal");
+                const input    = row.querySelector("input[type='number']");
+                if (price && subtotal && input) {
+                    const p = parseFloat(price.textContent.replace("$", ""));
+                    const q = parseInt(input.value);
+                    const s = p * q;
+                    subtotal.textContent = "$" + s.toFixed(2);
+                    total += s;
+                }
+            });
+            updateTotals(total);
+        }
+
+        function updateTotals(subtotal) {
+            const shipping = 10;
+            document.querySelector(".grand-total").textContent  = "$" + subtotal.toFixed(2);
+            document.querySelector(".final-total").textContent  = "$" + (subtotal + shipping).toFixed(2);
+        }
+
+        // ── Update quantity in localStorage ──
+        function updateQty(index, newQty) {
+            const cart = getCart();
+            cart[index].qty = parseInt(newQty) || 1;
+            saveCart(cart);
+            recalcTotals();
+            updateCartCount();
+        }
+
+        // ── Remove item from localStorage ──
+        function removeFromCart(index) {
+            const cart = getCart();
+            const name = cart[index].name;
+            cart.splice(index, 1);
+            saveCart(cart);
+            renderCart();
+            updateCartCount();
+            showToast("🗑️ " + name + " removed.");
+        }
+
+        // ── Coupon ──
+        function applyCoupon() {
+            const code = document.getElementById("coupon-input").value.trim().toUpperCase();
+            const msg  = document.getElementById("coupon-msg");
+            const validCoupons = { "TULLI10": 10, "SAVE20": 20, "WELCOME5": 5 };
+            if (validCoupons[code]) {
+                msg.style.color = "green";
+                msg.textContent = "✅ Coupon applied! " + validCoupons[code] + "% off your order.";
+            } else {
+                msg.style.color = "red";
+                msg.textContent = "❌ Invalid code. Try: TULLI10, SAVE20, or WELCOME5";
+            }
+        }
+
+        // ── Toast ──
+        function showToast(msg) {
+            const toast = document.getElementById("toast");
+            toast.textContent = msg;
+            toast.classList.add("show");
+            setTimeout(() => toast.classList.remove("show"), 3000);
+        }
+
+        // ── Init ──
+        renderCart();
+    </script>
+</body>
 </html>

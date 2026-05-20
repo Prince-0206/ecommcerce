@@ -1,99 +1,71 @@
-// =====================
-// Mobile Menu
-// =====================
-const bar = document.getElementById("bar");
+// =============================================
+// TULLI GARMENTS — script.js
+// =============================================
+
+// ── Mobile Menu ──
+const bar   = document.getElementById("bar");
 const close = document.getElementById("close");
-const nav = document.getElementById("navbar");
+const nav   = document.getElementById("navbar");
 
-if (bar) { bar.addEventListener('click', () => { nav.classList.add('show-menu'); }); }
-if (close) { close.addEventListener('click', () => { nav.classList.remove('show-menu'); }); }
+if (bar)   bar.addEventListener("click",  () => nav.classList.add("show-menu"));
+if (close) close.addEventListener("click", () => nav.classList.remove("show-menu"));
 
 
-// =====================
-// Cart Functionality
-// =====================
+// =============================================
+// CART SYSTEM — localStorage
+// =============================================
 
-// Update all subtotals and grand total
-function updateTotal() {
-    let cartSubtotal = 0;
-    const shipping = 10.00;
-
-    const rows = document.querySelectorAll('#cart-body tr');
-
-    rows.forEach(row => {
-        const priceCell = row.querySelector('.price');
-        const subtotalCell = row.querySelector('.subtotal');
-        const quantityInput = row.querySelector('input[type="number"]');
-
-        if (priceCell && subtotalCell && quantityInput) {
-            const price = parseFloat(priceCell.innerText.replace('$', ''));
-            const quantity = parseInt(quantityInput.value);
-
-            // Make sure quantity is at least 1
-            if (quantity < 1) quantityInput.value = 1;
-
-            const subtotal = price * quantity;
-            subtotalCell.innerText = '$' + subtotal.toFixed(2);
-            cartSubtotal += subtotal;
-        }
-    });
-
-    // Update Cart Subtotal
-    const grandTotalCell = document.querySelector('.grand-total');
-    if (grandTotalCell) {
-        grandTotalCell.innerText = '$' + cartSubtotal.toFixed(2);
-    }
-
-    // Update Final Total (subtotal + shipping)
-    const finalTotalCell = document.querySelector('.final-total');
-    if (finalTotalCell) {
-        finalTotalCell.innerText = '$' + (cartSubtotal + shipping).toFixed(2);
+// Get cart array from localStorage
+function getCart() {
+    try {
+        return JSON.parse(localStorage.getItem("tulliCart")) || [];
+    } catch {
+        return [];
     }
 }
 
-// Remove a cart row and recalculate
-function removeItem(button) {
-    const row = button.closest('tr');
-    row.remove();
-    updateTotal();
-
-    // Show empty message if no items left
-    const rows = document.querySelectorAll('#cart-body tr');
-    if (rows.length === 0) {
-        document.querySelector('#cart-body').innerHTML = `
-            <tr>
-                <td colspan="6" style="text-align:center; padding: 40px; color: #666;">
-                    Your cart is empty. <a href="shop.html" style="color:#088178;">Continue Shopping</a>
-                </td>
-            </tr>
-        `;
-        // Reset totals to zero
-        const grandTotalCell = document.querySelector('.grand-total');
-        const finalTotalCell = document.querySelector('.final-total');
-        if (grandTotalCell) grandTotalCell.innerText = '$0.00';
-        if (finalTotalCell) finalTotalCell.innerText = '$10.00';
-    }
+// Save cart array to localStorage
+function saveCart(cart) {
+    localStorage.setItem("tulliCart", JSON.stringify(cart));
 }
 
-// Coupon Code
-function applyCoupon() {
-    const code = document.getElementById('coupon-input').value.trim().toUpperCase();
-    const msg = document.getElementById('coupon-msg');
+// Add a product to cart (merges if same name+size already exists)
+function addToCart(item) {
+    const cart = getCart();
 
-    const validCoupons = {
-        'TULLI10': 10,
-        'SAVE20': 20,
-        'WELCOME5': 5
-    };
-
-    if (validCoupons[code]) {
-        msg.style.color = 'green';
-        msg.innerText = '✅ Coupon applied! ' + validCoupons[code] + '% off your order.';
+    // Check if same product + same size already in cart
+    const existing = cart.find(c => c.name === item.name && c.size === item.size);
+    if (existing) {
+        existing.qty += item.qty;  // just increase quantity
     } else {
-        msg.style.color = 'red';
-        msg.innerText = '❌ Invalid coupon code. Try TULLI10, SAVE20, or WELCOME5.';
+        cart.push(item);           // add as new item
     }
+
+    saveCart(cart);
+    updateCartCount();
 }
 
-// Run updateTotal on page load to set correct values
-document.addEventListener('DOMContentLoaded', updateTotal);
+// Update the cart badge count in the header
+function updateCartCount() {
+    const cart  = getCart();
+    const total = cart.reduce((sum, item) => sum + item.qty, 0);
+
+    const badge1 = document.getElementById("cart-count");
+    const badge2 = document.getElementById("cart-count-mobile");
+
+    if (badge1) badge1.textContent = total;
+    if (badge2) badge2.textContent = total;
+}
+
+// Toast notification (used across pages)
+function showToast(msg, color) {
+    const toast = document.getElementById("toast");
+    if (!toast) return;
+    toast.textContent  = msg;
+    toast.style.background = color || "#088178";
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 3000);
+}
+
+// ── Run on every page load — update the badge ──
+document.addEventListener("DOMContentLoaded", updateCartCount);

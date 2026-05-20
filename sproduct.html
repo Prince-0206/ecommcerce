@@ -9,6 +9,35 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
     <script src="https://kit.fontawesome.com/d0997f2656.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
+    <style>
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #088178;
+            color: white;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        #toast.show { opacity: 1; transform: translateY(0); }
+        .cart-count {
+            background: #088178;
+            color: white;
+            border-radius: 50%;
+            font-size: 11px;
+            padding: 2px 6px;
+            margin-left: 4px;
+            vertical-align: top;
+        }
+    </style>
 </head>
 
 <body>
@@ -18,7 +47,6 @@
         <a href="index.html">
             <img src="mainlogo.png" alt="Tulli Garments Logo" class="leftlogo">
         </a>
-
         <div>
             <ul id="navbar">
                 <li><a href="index.html">Home</a></li>
@@ -27,14 +55,19 @@
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li id="lgbag">
-                    <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a>
+                    <a href="cart.html">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span class="cart-count" id="cart-count">0</span>
+                    </a>
                 </li>
                 <a href="#" id="close"><i class="fas fa-times"></i></a>
             </ul>
         </div>
-
         <div id="mobile">
-            <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a>
+            <a href="cart.html">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span class="cart-count" id="cart-count-mobile">0</span>
+            </a>
             <i id="bar" class="fas fa-outdent"></i>
         </div>
     </section>
@@ -42,7 +75,6 @@
     <!-- ===================== PRODUCT DETAIL ===================== -->
     <section id="prodetail" class="section-p1">
 
-        <!-- Left: Product Images -->
         <div class="singleproimg">
             <img src="pro6.png" width="100%" id="mainimg" alt="Red Tape Men Polo Neck Green T-shirt">
             <div class="smallimggrp">
@@ -61,11 +93,10 @@
             </div>
         </div>
 
-        <!-- Right: Product Info -->
         <div class="singleprodetails">
-            <h6>Home / Shop / T-shirt</h6>
-            <h4>Red Tape Men Polo Neck Green T-shirt</h4>
-            <h2>$30.00</h2>
+            <h6 id="detail-bread">Home / Shop / Red Tape</h6>
+            <h4 id="detail-name">Red Tape Men Polo Neck Green T-shirt</h4>
+            <h2 id="detail-price">$30.00</h2>
 
             <div class="star" style="margin-bottom: 15px;">
                 <i class="fas fa-star"></i>
@@ -76,8 +107,8 @@
                 <span style="font-size: 13px; color: #666; margin-left: 8px;">(128 reviews)</span>
             </div>
 
-            <select>
-                <option>Select Size</option>
+            <select id="detail-size">
+                <option value="">Select Size</option>
                 <option>Small</option>
                 <option>Medium</option>
                 <option>Large</option>
@@ -85,17 +116,17 @@
                 <option>XXL</option>
             </select>
 
-            <input type="number" value="1" min="1">
-            <button class="normal" onclick="window.location.href='cart.html'">
+            <input type="number" id="detail-qty" value="1" min="1">
+
+            <button class="normal" id="addtocart-btn">
                 <i class="fa-solid fa-cart-shopping" style="margin-right: 8px;"></i>Add To Cart
             </button>
 
             <h4>Product Details</h4>
-            <span>
+            <span id="detail-desc">
                 A classic polo neck T-shirt by Red Tape, crafted from premium 100% cotton for all-day
                 comfort. Features a ribbed collar, short sleeves, and a relaxed fit — perfect for both
-                casual and smart-casual occasions. Available in sizes Small to XXL.
-                <br><br>
+                casual and smart-casual occasions. Available in sizes Small to XXL.<br><br>
                 <strong>Material:</strong> 100% Cotton<br>
                 <strong>Fit:</strong> Regular Fit<br>
                 <strong>Care:</strong> Machine wash at 30°C
@@ -114,21 +145,19 @@
                 data-brand="Adidas"
                 data-price="$35.00"
                 data-img="pro1.png"
-                data-desc="A sleek black T-shirt by Adidas, made from soft jersey fabric. Perfect for workouts or casual wear. Features the iconic Adidas branding on the chest.">
-                <img src="pro1.png" alt="Adidas Neu C Tee Men Black T-shirt">
+                data-desc="A sleek black T-shirt by Adidas, made from soft jersey fabric. Perfect for workouts or casual wear.">
+                <img src="pro1.png" alt="Adidas Neu C Tee">
                 <div class="des">
                     <span>Adidas</span>
                     <h5>Neu C Tee Men Black T-shirt</h5>
                     <div class="star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                     </div>
                     <h4>$35.00</h4>
                 </div>
-                <a href="cart.html"><i class="fa-solid fa-cart-shopping cart"></i></a>
+                <a href="#" class="quick-add"><i class="fa-solid fa-cart-shopping cart"></i></a>
             </div>
 
             <div class="pro"
@@ -136,21 +165,19 @@
                 data-brand="US Polo"
                 data-price="$28.00"
                 data-img="produ2.png"
-                data-desc="A slim-fit crew-neck T-shirt by US Polo Assn. with a subtle logo print. Crafted from 100% cotton for a breathable and comfortable feel all day long.">
-                <img src="produ2.png" alt="US Polo Slim Fit T-Shirt">
+                data-desc="A slim-fit crew-neck T-shirt by US Polo Assn. Crafted from 100% cotton for a breathable and comfortable feel all day long.">
+                <img src="produ2.png" alt="US Polo Slim Fit">
                 <div class="des">
                     <span>US Polo</span>
                     <h5>Men Logo Print Slim Fit Crew-Neck T-Shirt</h5>
                     <div class="star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
                         <i class="fas fa-star-half-alt"></i>
                     </div>
                     <h4>$28.00</h4>
                 </div>
-                <a href="cart.html"><i class="fa-solid fa-cart-shopping cart"></i></a>
+                <a href="#" class="quick-add"><i class="fa-solid fa-cart-shopping cart"></i></a>
             </div>
 
             <div class="pro"
@@ -158,21 +185,19 @@
                 data-brand="Adidas"
                 data-price="$45.00"
                 data-img="product11.png"
-                data-desc="Official Argentina football jersey style T-shirt for kids by Adidas. Lightweight and breathable with moisture-wicking technology. Great for sports and casual wear.">
-                <img src="product11.png" alt="Adidas Argentina Kids T-shirt">
+                data-desc="Official Argentina football jersey style T-shirt for kids by Adidas. Lightweight and breathable with moisture-wicking technology.">
+                <img src="product11.png" alt="Adidas Argentina Kids">
                 <div class="des">
                     <span>Adidas</span>
                     <h5>Argentina Kids T-shirt</h5>
                     <div class="star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                     </div>
                     <h4>$45.00</h4>
                 </div>
-                <a href="cart.html"><i class="fa-solid fa-cart-shopping cart"></i></a>
+                <a href="#" class="quick-add"><i class="fa-solid fa-cart-shopping cart"></i></a>
             </div>
 
             <div class="pro"
@@ -180,21 +205,19 @@
                 data-brand="H&amp;M"
                 data-price="$22.00"
                 data-img="pro4.png"
-                data-desc="A fun oversized T-shirt by H&M featuring a bold Spiderman graphic print on the front. Made from soft cotton blend fabric — perfect for everyday casual wear.">
-                <img src="pro4.png" alt="H&M Oversized Spiderman T-shirt">
+                data-desc="A fun oversized T-shirt by H&M featuring a bold Spiderman graphic print. Made from soft cotton blend fabric.">
+                <img src="pro4.png" alt="H&M Spiderman">
                 <div class="des">
                     <span>H&amp;M</span>
                     <h5>Oversized Printed Spiderman T-shirt</h5>
                     <div class="star">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
                         <i class="far fa-star"></i>
                     </div>
                     <h4>$22.00</h4>
                 </div>
-                <a href="cart.html"><i class="fa-solid fa-cart-shopping cart"></i></a>
+                <a href="#" class="quick-add"><i class="fa-solid fa-cart-shopping cart"></i></a>
             </div>
 
         </div>
@@ -230,7 +253,6 @@
                 </div>
             </div>
         </div>
-
         <div class="col">
             <h4>About</h4>
             <a href="about.html">About Us</a>
@@ -239,7 +261,6 @@
             <a href="#">Terms &amp; Conditions</a>
             <a href="contact.html">Contact Us</a>
         </div>
-
         <div class="col">
             <h4>My Account</h4>
             <a href="#">Sign In</a>
@@ -248,19 +269,20 @@
             <a href="#">Track My Order</a>
             <a href="#">Help</a>
         </div>
-
         <div class="copyright">
             <p>&copy; 2024 Tulli Garments. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- ===================== SCRIPTS ===================== -->
-    <script>
-        // ── Thumbnail image switcher ──
-        const mainimg = document.getElementById("mainimg");
-        const smallimgs = document.querySelectorAll(".smallimg");
+    <!-- Toast -->
+    <div id="toast"></div>
 
-        smallimgs.forEach(function(img) {
+    <script src="script.js"></script>
+    <script>
+        // ── Thumbnail switcher ──
+        const mainimg  = document.getElementById("mainimg");
+        const smallimgs = document.querySelectorAll(".smallimg");
+        smallimgs.forEach(img => {
             img.style.cursor = "pointer";
             img.addEventListener("click", function() {
                 mainimg.src = this.src;
@@ -270,45 +292,59 @@
         });
 
         // ── Related product switcher ──
-        // Grabs the elements in the top detail section that need updating
-        const detailImg     = document.getElementById("mainimg");
-        const detailName    = document.querySelector(".singleprodetails h4");
-        const detailPrice   = document.querySelector(".singleprodetails h2");
-        const detailDesc    = document.querySelector(".singleprodetails span");
-        const detailBread   = document.querySelector(".singleprodetails h6");
+        const detailName  = document.getElementById("detail-name");
+        const detailPrice = document.getElementById("detail-price");
+        const detailDesc  = document.getElementById("detail-desc");
+        const detailBread = document.getElementById("detail-bread");
+        const firstThumb  = document.querySelector(".smallimggrp .smallimgcol:first-child img");
 
-        // Also grab the first small thumbnail so we can update it too
-        const firstThumb    = document.querySelector(".smallimggrp .smallimgcol:first-child img");
-
-        document.querySelectorAll("#product1 .pro").forEach(function(card) {
+        document.querySelectorAll("#product1 .pro").forEach(card => {
             card.style.cursor = "pointer";
             card.addEventListener("click", function(e) {
-                // Don't trigger if user clicked the cart icon link
                 if (e.target.closest("a")) return;
-
-                const name  = this.dataset.name;
-                const brand = this.dataset.brand;
-                const price = this.dataset.price;
-                const img   = this.dataset.img;
-                const desc  = this.dataset.desc;
-
-                // Update main product detail section
-                detailImg.src           = img;
-                detailName.textContent  = name;
-                detailPrice.textContent = price;
-                detailDesc.textContent  = desc;
-                detailBread.textContent = "Home / Shop / " + brand;
-
-                // Update first thumbnail to match new product
-                if (firstThumb) firstThumb.src = img;
-
-                // Scroll smoothly up to the product detail section
+                mainimg.src             = this.dataset.img;
+                detailName.textContent  = this.dataset.name;
+                detailPrice.textContent = this.dataset.price;
+                detailDesc.textContent  = this.dataset.desc;
+                detailBread.textContent = "Home / Shop / " + this.dataset.brand;
+                if (firstThumb) firstThumb.src = this.dataset.img;
                 document.getElementById("prodetail").scrollIntoView({ behavior: "smooth" });
             });
         });
+
+        // ── Add To Cart (main button) ──
+        document.getElementById("addtocart-btn").addEventListener("click", function() {
+            const name  = detailName.textContent;
+            const price = detailPrice.textContent;
+            const img   = mainimg.getAttribute("src");
+            const qty   = parseInt(document.getElementById("detail-qty").value) || 1;
+            const size  = document.getElementById("detail-size").value || "One Size";
+
+            if (!size) {
+                showToast("⚠️ Please select a size first!");
+                return;
+            }
+
+            addToCart({ name, price, img, qty, size });
+            showToast("✅ " + name + " added to cart!");
+        });
+
+        // ── Quick add from related product cart icons ──
+        document.querySelectorAll(".quick-add").forEach(link => {
+            link.addEventListener("click", function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const card = this.closest(".pro");
+                addToCart({
+                    name:  card.dataset.name,
+                    price: card.dataset.price,
+                    img:   card.dataset.img,
+                    qty:   1,
+                    size:  "One Size"
+                });
+                showToast("✅ " + card.dataset.name + " added to cart!");
+            });
+        });
     </script>
-
-    <script src="script.js"></script>
 </body>
-
 </html>
