@@ -277,7 +277,7 @@
     <!-- Toast -->
     <div id="toast"></div>
 
-    <script src="images/script.js"></script>
+    <script src="script.js"></script>
     <script>
         // ── Thumbnail switcher ──
         const mainimg  = document.getElementById("mainimg");
@@ -302,12 +302,12 @@
             card.style.cursor = "pointer";
             card.addEventListener("click", function(e) {
                 if (e.target.closest("a")) return;
-                mainimg.src             = this.dataset.img;
+                mainimg.src             = "images/" + this.dataset.img;
                 detailName.textContent  = this.dataset.name;
                 detailPrice.textContent = this.dataset.price;
                 detailDesc.textContent  = this.dataset.desc;
                 detailBread.textContent = "Home / Shop / " + this.dataset.brand;
-                if (firstThumb) firstThumb.src = this.dataset.img;
+                if (firstThumb) firstThumb.src = "images/" + this.dataset.img;
                 document.getElementById("prodetail").scrollIntoView({ behavior: "smooth" });
             });
         });
@@ -316,9 +316,11 @@
         document.getElementById("addtocart-btn").addEventListener("click", function() {
             const name  = detailName.textContent;
             const price = detailPrice.textContent;
-            const img   = mainimg.getAttribute("src");
+            // Strip "images/" prefix so cart.html can add it back correctly
+            const rawImg = mainimg.getAttribute("src");
+            const img   = rawImg.replace("images/", "");
             const qty   = parseInt(document.getElementById("detail-qty").value) || 1;
-            const size  = document.getElementById("detail-size").value || "One Size";
+            const size  = document.getElementById("detail-size").value;
 
             if (!size) {
                 showToast("⚠️ Please select a size first!");

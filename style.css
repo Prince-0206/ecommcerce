@@ -602,7 +602,7 @@ button.white:hover {
   justify-content: center;
   background-image:
     linear-gradient(135deg, rgba(8,129,120,0.82), rgba(4,30,66,0.82)),
-    url("images/fashion.jpg");
+    url("images/rightbnr.png");
   background-size: cover;
   background-position: center;
   padding: 36px;
@@ -1134,38 +1134,6 @@ footer .copyright {
   border-radius: 2px;
   margin-top: 10px;
 }
-#aboutheadsecond {
-  display: flex;
-  align-items: center;
-  gap: 60px;
-}
-
-#aboutheadsecond img {
-  width: 48%;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-lg);
-  transition: var(--transition);
-}
-
-#aboutheadsecond img:hover { transform: scale(1.02); }
-
-#aboutheadsecond div { flex: 1; }
-
-#aboutheadsecond h2 {
-  margin-bottom: 16px;
-  position: relative;
-}
-
-#aboutheadsecond h2::after {
-  content: "";
-  display: block;
-  width: 50px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--primary), #0ab4a8);
-  border-radius: 2px;
-  margin-top: 10px;
-}
-
 
 /* =============================================
    CONTACT PAGE
