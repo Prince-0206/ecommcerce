@@ -1103,29 +1103,29 @@ footer .copyright {
   background-size: cover;
 }
 
-#abouthead {
+#abouthead, #aboutvalues {
   display: flex;
   align-items: center;
   gap: 60px;
 }
 
-#abouthead img {
+#abouthead img, #aboutvalues img {
   width: 48%;
   border-radius: var(--radius);
   box-shadow: var(--shadow-lg);
   transition: var(--transition);
 }
 
-#abouthead img:hover { transform: scale(1.02); }
+#abouthead img:hover, #aboutvalues img:hover { transform: scale(1.02); }
 
-#abouthead div { flex: 1; }
+#abouthead div, #aboutvalues div { flex: 1; }
 
-#abouthead h2 {
+#abouthead h2, #aboutvalues h2 {
   margin-bottom: 16px;
   position: relative;
 }
 
-#abouthead h2::after {
+#abouthead h2::after, #aboutvalues h2::after {
   content: "";
   display: block;
   width: 50px;
